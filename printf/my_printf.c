@@ -1,4 +1,3 @@
-#include <stdio.h>// <<<--- for printf, can be deleted
 #include <stdarg.h>// library for va_args functions
 #include <unistd.h>// library for write()
 
@@ -132,36 +131,12 @@ int my_printf(char* string, ...)
         }
     }
     va_end(args);
-    printf("%i\n", output_length); //<< --- this is for the ease of testing to check the correct return
     return output_length;
 }
 
 int main(void)
 {
-    int p;
-    //printf("%p\n", &p); << -- just to compare the output with my_printf
-    /*
-    my_printf("Hello world!\n");
-    my_printf("%c!\n", 'H');
-    my_printf("%c%c%c%c%c!\n", 'H', 'e', 'l', 'l', 'o');
-    my_printf("\n");
-    my_printf("Hello %s!\n", "QWASAR.IO");
-    my_printf("Hello %s %s!\n", "Mr", "Gaetan");
-    my_printf("NULL STRING %s!\n", (char*)NULL);
-    my_printf("\n");
-    
-    my_printf("%d!\n", 1337);
-    my_printf("%d - %d - %d!\n", 2048, 0, -1337);
-    my_printf("\n");
-    my_printf("%o!\n", 100);
-    my_printf("\n");
-    my_printf("%u!\n", 1337);
-    my_printf("\n");
-    my_printf("%x!\n", 14);
-    */
-
-    my_printf("%d - %d - %d!\n", 2048, 0, -1337);
-    my_printf("\n");
+    int p
     my_printf("%p!\n", &p);
     
     return 0;
