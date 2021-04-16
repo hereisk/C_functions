@@ -10,3 +10,5 @@ my_tar allows the following option:
 
 Input format:
         ./my_tar -[OPTION] [ARCHIVE NAME] [ARCHIVE MEMBER] [ARCHIVE MEMBER]....
+
+The program is created by Konstantin Melkov and Demitrus Booker.
