@@ -1,0 +1,116 @@
+format:
+        tar [OPTION] [FILE]
+        [--file=archive-name] -> to specify the archive name
+Two blocks of 512 bytes.
+
+Four big chunks of work:
+
+• The option processing
+        - read the command line
+            -> check for format | ./my_tar -*f 
+            -> read (int ac, char** av[]) with loop or switch 
+
+        -f -> use archive file or device ARCHIVE -> to specify the archive name. The option is mandatory
+              format: 
+                    [-f archive-name]
+                    
+• The creation of the archive
+        -c -> create new file
+
+            - create archive file (open function)
+            - for loop to write members to archive file 
+                - send each archive member to process_archive_member
+                    - initialize tar header
+
+
+                    - if the archive memeber is a file:
+                        - read the archive memeber's stats and save them into tar struct as strings
+                        - write the tar struct into thearchive
+                        - write the content into the archive
+                        - make the end of archive entry
+                    - if the archive memeber is a directory:
+                        - read the archive memeber's stats and save them into tar struct as strings
+                        - write the tar struct into thearchive
+                        - check if the directory is NOT empty
+                            - open the directory and add everything from the directory into the archive
+
+                    - free pointer to header 
+
+• The appending of the archive
+        -r -> append files to the end of an archive
+                Simply add a new memeber to the end of ther archive
+        -u -> only append files newer than copy in archive
+                extract files -> check the time stamp on the file that's being added -> create the archive
+        
+
+• The listing
+        -t -> list the contents of an archive 
+            how to navigate withing the archive?
+
+• The extraction
+        -x -> extract files from an archive.
+            If a file already exists in the archive, a newer version is overwritting the older.
+
+
+
+-> what is input and output for each?
+    Input: file IDs, their permissions
+    Output: depends on the type of mode, It can be a created but not printed archive, created and printed archive, list, so on.
+
+    Variables type is string, or array or string by (typedef struct) help where each file has their links, IDs.
+-> information about tar format by running tar --help and tar --version
+
+
+Permitted Functions:
+    chmod - change permissions of a file; https://www.man7.org/linux/man-pages/man2/chmod.2.html
+    close|(2) - close a file descriptor; https://man7.org/linux/man-pages/man2/close.2.html
+    free(3)
+    fstat(2)
+    getpwuid - search user database for a user ID; https://pubs.opengroup.org/onlinepubs/009695399/functions/getpwuid.html
+    getgrgid - get group database entry for a group ID; https://pubs.opengroup.org/onlinepubs/009695399/functions/getgrgid.html
+    getxattr - retrieve an extended attribute value; https://man7.org/linux/man-pages/man2/getxattr.2.html
+    listxattr - list extended attribute names; https://man7.org/linux/man-pages/man2/listxattr.2.html
+    lseek(2) - reposition read/write file offset; https://man7.org/linux/man-pages/man2/lseek.2.html
+    major - manage a device number; https://linux.die.net/man/3/major
+    malloc(3)
+    minor
+    mkdir(2)
+    open(2)
+    opendir
+    read(2)
+    readdir
+    readlink
+    stat(2)
+    symlink
+    unlink(2)
+    time
+    ctime
+    utime
+    write(2) - write to a file descriptor
+
+
+Custom functions needed:
+    atio - string to an int - https://man7.org/linux/man-pages/man3/atoi.3.html
+    itoa - int to a string
+    strlen - length of a string
+
+
+
+Additional resources:
+
+General read and examples -
+https://docs.computecanada.ca/wiki/A_tutorial_on_%27tar%27
+
+soft link AND hard link - 
+https://ostechnix.com/explaining-soft-link-and-hard-link-in-linux-with-examples/
+
+soft link VS hard link 
+https://www.geeksforgeeks.org/difference-between-hard-link-and-soft-link/
+
+hints on the code architecture -
+https://www.gnu.org/software/tar/manual/html_node/Standard.html
+
+These threads have some good sublinks about details of implimentation -
+https://stackoverflow.com/questions/29641965/creating-my-own-archive-tool-in-c
+https://stackoverflow.com/questions/42587991/implementing-tar-command-in-c
+https://stackoverflow.com/questions/1553653/how-to-untar-file-in-memory-c-programming
