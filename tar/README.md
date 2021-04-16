@@ -7,3 +7,6 @@ my_tar allows the following option:
 • -x  - extract archive members
 • -r  - append a new archive member to the end of the archive
 • -u  - append a new archive member to the end of the archive if the last modification is newer than the archive member within the archive
+
+Input format:
+        ./my_tar -[OPTION] [ARCHIVE NAME] [ARCHIVE MEMBER] [ARCHIVE MEMBER]....
